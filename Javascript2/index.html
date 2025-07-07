@@ -1,0 +1,118 @@
+<!-- 
+  Project: Mouse Move Shadow
+  Student: Abdelhafidh Mahouel
+  Class: JCCC_WEB124_2025
+  Date: July 6, 2025
+  Source: Wes Bos JavaScript30 - Project #16
+  Customizations:
+    - Personalized message and footer
+    - Modern animated gradient background
+    - Enhanced shadow glow effect
+    - Responsive, clean design with centered layout
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mouse Shadow by Abdel Mahouel</title>
+  <link rel="icon" href="https://fav.farm/✅" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      background-size: 600% 600%;
+      animation: gradientShift 12s ease infinite;
+      color: #fdfdfd;
+      height: 100%;
+    }
+
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 7rem);
+      font-weight: 700;
+      margin: 0;
+      cursor: pointer;
+      text-shadow:
+        2px 2px 10px rgba(255, 255, 255, 0.1),
+        -2px -2px 10px rgba(0, 255, 255, 0.3);
+      transition: text-shadow 0.2s ease;
+    }
+
+    .message {
+      font-size: 1.5rem;
+      color: #cce3f3;
+      margin-top: 1rem;
+    }
+
+    .credit {
+      font-size: 1rem;
+      color: #bbbbbb;
+      margin-top: 4rem;
+    }
+
+    @media (max-width: 600px) {
+      .message {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1 contenteditable="true">Move Your Mouse Around</h1>
+    <div class="message">Watch the glow follow your motion!</div>
+    <div class="credit">Made by Abdel Mahouel &nbsp; | &nbsp; JCCC_WEB124_2025</div>
+  </div>
+
+  <script>
+    // Author: Abdelhafidh Mahouel | Project: Mouse Move Shadow | Date: July 6, 2025
+
+    const hero = document.querySelector('.hero');
+    const text = hero.querySelector('h1');
+    const walk = 300; // max shadow distance
+
+    function shadow(e) {
+      const { offsetWidth: width, offsetHeight: height } = hero;
+      let { offsetX: x, offsetY: y } = e;
+
+      if (this !== e.target) {
+        x += e.target.offsetLeft;
+        y += e.target.offsetTop;
+      }
+
+      const xWalk = Math.round((x / width * walk) - (walk / 2));
+      const yWalk = Math.round((y / height * walk) - (walk / 2));
+
+      text.style.textShadow = `
+        ${xWalk}px ${yWalk}px 10px rgba(255,255,255,0.2),
+        ${-xWalk}px ${yWalk}px 10px rgba(255, 0, 150, 0.4),
+        ${yWalk}px ${-xWalk}px 10px rgba(0, 200, 255, 0.4),
+        ${-yWalk}px ${xWalk}px 10px rgba(0, 255, 180, 0.5)
+      `;
+    }
+
+    hero.addEventListener('mousemove', shadow);
+  </script>
+
+</body>
+</html>
