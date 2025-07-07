@@ -1,0 +1,131 @@
+<!-- 
+  Project: CSS Variables with JS
+  Student: Abdelhafidh Mahouel
+  Class: JCCC_WEB124_2025
+  Date: July 7, 2025
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CSS Variable Playground by Abdel Mahouel</title>
+  <link rel="icon" href="https://fav.farm/✅" />
+  <style>
+    :root {
+      --base: #ffc600;
+      --spacing: 10px;
+      --blur: 10px;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      background-size: 600% 600%;
+      animation: gradientShift 12s ease infinite;
+      color: white;
+      height: 100%;
+    }
+
+    @keyframes gradientShift {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700;
+      margin-bottom: 1rem;
+      text-shadow:
+        2px 2px 10px rgba(255, 255, 255, 0.1),
+        -2px -2px 10px rgba(0, 255, 255, 0.3);
+    }
+
+    .controls {
+      margin-bottom: 2rem;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 1rem;
+      border-radius: 12px;
+      backdrop-filter: blur(6px);
+    }
+
+    label {
+      margin: 0 10px;
+      font-size: 1rem;
+    }
+
+    input[type="range"],
+    input[type="color"] {
+      margin: 0 10px;
+      vertical-align: middle;
+    }
+
+    .box-preview {
+      width: 300px;
+      height: 200px;
+      background: var(--base);
+      padding: var(--spacing);
+      filter: blur(var(--blur));
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.15);
+      transition: all 0.2s ease;
+    }
+
+    footer {
+      margin-top: 3rem;
+      color: #bbbbbb;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="hero">
+    <h1>CSS Variable Playground</h1>
+
+    <div class="controls">
+      <label for="spacing">Spacing:</label>
+      <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+      <label for="blur">Blur:</label>
+      <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+      <label for="base">Base Color:</label>
+      <input id="base" type="color" name="base" value="#ffc600">
+    </div>
+
+    <div class="box-preview"></div>
+
+    <footer>
+      Made by Abdel Mahouel @JCCC_WEB124_2025
+    </footer>
+  </div>
+
+  <script>
+    // JavaScript by Abdel Mahouel
+    const inputs = document.querySelectorAll('.controls input');
+
+    function handleUpdate() {
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+  </script>
+
+</body>
+</html>
